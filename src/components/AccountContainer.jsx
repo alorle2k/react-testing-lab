@@ -28,19 +28,31 @@ function AccountContainer() {
   }
   
   // Sort function here
-  function onSort(sortBy){
-    
-  }
+  
+function onSort(sortBy) {
+  const sortedTransactions = [...transactions].sort((a, b) =>
+    a[sortBy].localeCompare(b[sortBy])
+  );
+
+  setTransactions(sortedTransactions);
+}
+
 
   // Filter using search here and pass new variable down
   
+const filteredTransactions = transactions.filter((transaction) =>
+  transaction.description
+    .toLowerCase()
+    .includes(search.trim().toLowerCase())
+);
+
 
   return (
     <div>
       <Search setSearch={setSearch}/>
       <AddTransactionForm postTransaction={postTransaction}/>
       <Sort onSort={onSort}/>
-      <TransactionsList transactions={transactions} />
+      <TransactionsList transactions={filteredTransactions} />
     </div>
   );
 }
